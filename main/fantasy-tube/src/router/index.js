@@ -1,28 +1,28 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/components/Home'
-import SignIn from '@/components/SignIn'
-import Dashboard from '@/components/Dashboard'
-import TeamBuild from '@/components/TeamBuild'
-import Inventory from '@/components/Inventory'
+import Vue from 'vue' 
+import Router from 'vue-router' 
 import GameView from '@/components/GameView'
 import LineUp from '@/components/LineUp'
-
-Vue.use(Router)
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'SignIn',
-      component: SignIn
-    },
-    {
-      path: '/home',
-      name: 'Home',
-      component: Home
-    },
-    {
+import Dashboard from '@/components/Dashboard'
+import TeamBuild from '@/components/TeamBuild'
+import Market from '@/components/Market'
+import SignIn from '@/components/SignIn'
+import Home from '@/components/Home'
+import Inventory from '@/components/Inventory'
+Vue.use(Router) 
+ 
+export default new Router({ 
+  routes: [ 
+    { 
+      path: '/', 
+      name: 'SignIn', 
+      component: SignIn 
+    }, 
+    { 
+      path: '/home', 
+      name: 'Home', 
+      component: Home 
+    }, 
+    { 
       path: '/dashboard',
       name: 'Dashboard',
       component: Dashboard
@@ -46,6 +46,11 @@ export default new Router({
       path: '/lineup',
       name: 'LineUp',
       component: LineUp
+    },
+    {
+      path: '/market',
+      name: 'Market',
+      component: Market
     }
   ]
 })
