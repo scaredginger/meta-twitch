@@ -1,5 +1,5 @@
-<style scoped lang="scss">
-	#root {
+<style lang="scss" scoped>
+	.thumbnail {
 		position:relative;
 		overflow:hidden;
 		width: 150px;
@@ -42,8 +42,8 @@
 			position: absolute;
 			bottom: 0px;
 			left: auto;
-			border-top-left-radius: 150px;
-			border-top-right-radius: 150px;
+			border-top-left-radius: 150px !important;
+			border-top-right-radius: 150px !important;
 			-webkit-box-shadow: 0px 0px 10px 2px #f3caa7;
 			box-shadow: 0px 0px 10px 2px #aaa inset;
 			opacity: 1;
@@ -56,11 +56,13 @@
 			background: rgba(255, 198, 0, 0.3);
 			box-shadow: 0px 0px 10px 2px #ffd196 inset;
 		}
+
+		.spotlight.preview {
+			display:none;
+		}
 	}
 
-
-
-	#root:hover {
+	.thumbnail:hover {
 		// box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.4);
 		.spotlight {
 			background: rgba(255, 255, 255, 0.3);
@@ -68,13 +70,11 @@
 		}
 	}
 
-
-
 </style>
 
 <template>
-	<v-card id="root">
-		<div class="spotlight" v-bind:class="{ active: active }"></div>
+	<v-card class="thumbnail">
+		<div class="spotlight" v-bind:class="{ active: active, preview: preview }"></div>
 		<img class="thumb" :src='channel.channel_logo_url'>
 		<span class="name">{{channel.name}}</span>
 	</v-card>
@@ -85,6 +85,7 @@ export default {
   name: 'ChannelThumbnail',
   props: {
   	active: Boolean,
+  	preview: Boolean,
   	channel: Object
   }
 }

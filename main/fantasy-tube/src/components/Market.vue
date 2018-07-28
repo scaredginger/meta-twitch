@@ -7,6 +7,10 @@
 
 <template>
 	<v-app>
+		
+		<router-view>
+		</router-view>
+
 	    <v-card>
 		    <v-card-title>
 		      Market
@@ -85,6 +89,7 @@
 		      </v-alert>
 		    </v-data-table>
 		  </v-card>
+
 	  </v-app>
 </template>
 

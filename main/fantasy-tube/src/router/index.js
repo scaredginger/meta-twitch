@@ -56,7 +56,14 @@ export default new Router({
     {
       path: '/market',
       name: 'Market',
-      component: Market
+      component: Market,
+      children: [
+        { path: 'channel/:channelId',
+          name: 'MarketItem',
+          props: true,
+          component: MarketItem
+        }
+      ]
     }
   ]
 })
