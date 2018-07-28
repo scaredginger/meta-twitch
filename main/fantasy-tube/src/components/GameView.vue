@@ -21,7 +21,8 @@
           {{ username2 }} 
         </div>
       </div>
-      <div id="versus_graph">
+      <div class="versus_graph">
+        <canvas id="myChart"></canvas>
       </div>
     </div>
     <hr>
@@ -55,6 +56,31 @@ export default {
       username2: 'scaredginger',
       graph_data: []
     }
+  },
+  mounted() {
+    fetch(`http://meta-twitch.tech/game-data/${this.username1}/${this.username2}`).then((data) => {
+      this.graph_data = data;
+    });
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+      type: 'line',
+      data: [{
+        x: this.graph_data['player1-x'],
+        y: this.graph_data['player1-y']
+        }, {
+        x: this.graph_data['player2-x'],
+        y: this.graph_data['player2-y']
+      }],
+      options: {
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'month'
+            }
+          }]
+        }
+      }
+    });
   }
 }
 </script>

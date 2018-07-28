@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="header"><a href="/"><h2>Twitch Fantasy Team</h2></a></div>
+    <div class="header"><a href="/"><h2>MetaTwitch</h2></a></div>
     <router-view/>
   </div>
 </template>
