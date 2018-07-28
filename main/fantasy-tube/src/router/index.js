@@ -41,7 +41,7 @@ export default new Router({
     {
       path: '/tomorrow',
       name: 'TomorrowView',
-      componenet: TomorrowView
+      component: TomorrowView
     },
     {
       path: '/game',

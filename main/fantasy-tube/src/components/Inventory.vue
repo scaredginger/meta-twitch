@@ -31,12 +31,13 @@ export default {
         {name: 'other_user', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/d4837db8-36a0-4949-b937-837bf5c79383-profile_image-50x50.png', price: 342983},
         {name: 'third_user', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/bbecd8c4-141c-422b-8285-e3f8cae79dbb-profile_image-50x50.jpg', price: 9849537},
         {name: 'scaredginger', channel_logo_url: 'https://static-cdn.jtvnw.net/user-default-pictures/bb97f7e6-f11a-4194-9708-52bf5a5125e8-profile_image-70x70.jpg', price: 9001},
-        {name: 'etopiei', channel_logo_url: 'https://avatars1.githubusercontent.com/u/17671663?s=460&v=4', price: 9120803}
+        {name: 'etopiei', channel_logo_url: 'https://avatars1.githubusercontent.com/u/17671663?s=460&v=4', price: 9120803},
+        {name: 'hiya', channel_logo_url: 'https://avatars3.githubusercontent.com/u/14135445?s=460&v=4', price: 5732934}
       ]
     }
   },
   mounted() {
-    fetch(`https://metatwitch.tech/inventory/${this.username}`).then((data) => {
+    fetch(`http://meta-twitch.tech/inventory/${this.username}`).then((data) => {
       this.players = data;
     });
   }
@@ -49,7 +50,6 @@ export default {
   flex-wrap: wrap;
   flex-direction: row;
   width: 100%;
-  justify-content: space-between;
 }
 .player_object {
   margin-top: 8px;

@@ -29,9 +29,11 @@
     Lineups
     <div class="large-section">
       <div class="almost_half lineups">
+        {{ username1 }}
         <LineUp :username="username1"/>
       </div>
       <div class="almost_half lineups">
+        {{ username2 }}
         <LineUp :username="username2"/>
       </div>
     </div>
@@ -58,8 +60,11 @@ export default {
     }
   },
   mounted() {
-    this.username1 = this.$route.params.username;
+    if (this.$route.params.username != '' && this.$route.params.username != null && this.$route.params.username != undefined) {
+      this.username1 = this.$route.params.username;
+    }
     // here get username2 first via an endpoint, then do the next query
+    /*
     fetch(`http://meta-twitch.tech/game-data/${this.username1}/${this.username2}`).then((data) => {
       this.graph_data = data;
     });
@@ -83,6 +88,7 @@ export default {
         }
       }
     });
+    */
   }
 }
 </script>
@@ -116,12 +122,11 @@ hr {
 .almost_half {
   width: 48%;
   height: 100%;
-  background-color: #999;
   margin-right: 1%;
   margin-left: 1%;
 }
 .game_status {
-  background-color: black;
+  background-color:#383838;;
   color: white;
 }
 .display {

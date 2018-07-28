@@ -1,7 +1,8 @@
 <template>
   <div class="tomorrow">
-    Tomorrow's Lineup
+    <h2>Tomorrow's Lineup</h2>
     <LineUp :username="username" :today="false"/>
+    <h2>Inventory</h2>
     <Inventory/>
   </div>
 </template>
@@ -31,5 +32,8 @@ export default {
 <style scoped>
 .tomorrow {
   margin-top: 1.2rem;
+}
+h2 {
+  margin-top: 2rem;
 }
 </style>
