@@ -103,7 +103,7 @@ export default {
 			this.$store.commit('removeInventory', {
 				channel_name: this.channel.name
 			});
-		}	
+		},
   	updateChannelData: function () {
   		// console.log("MarketItem", this.$route.params.channelId);
 	  	let k = this.$route.params.channelId;
