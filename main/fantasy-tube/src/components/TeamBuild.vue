@@ -23,7 +23,8 @@
 <template>
     <div>
 
-      <LineUp title="Tomorrow's Lineup" class="grey lighten-2" :channels="currentLineup" :editable="true"/>
+      <LineUp ref="lu" title="Tomorrow's Lineup" class="grey lighten-2" :channels="currentLineup" :editable="true"/>
+      <v-btn @click="saveAndGoHome()" class="btn-primary primary">Save</v-btn>
       <Inventory class="grey darken-2"></Inventory>
 
 
@@ -55,6 +56,7 @@ export default {
   },
   data () {
     return {
+      /*
       currentLineup: [
         {name: 'test', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/69ead2c6-2e23-4ec3-bb9b-5a866c03cc21-profile_image-50x50.jpg', price: 239492},
         {name: 'other_user', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/d4837db8-36a0-4949-b937-837bf5c79383-profile_image-50x50.png', price: 342983},
@@ -62,30 +64,16 @@ export default {
         {name: 'scaredginger', channel_logo_url: 'https://static-cdn.jtvnw.net/user-default-pictures/bb97f7e6-f11a-4194-9708-52bf5a5125e8-profile_image-70x70.jpg', price: 9001},
         {name: 'etopiei', channel_logo_url: 'https://avatars1.githubusercontent.com/u/17671663?s=460&v=4', price: 9120803}
       ],
-      market_data: [
-          {
-            name: 'MKBHD',
-            channel_logo_url: 'https://lh3.googleusercontent.com/a-/ACSszfGZoERWK5GeO053zzNJOZZaKrMjTaqrPIj5Dg=s176-c-k-c0x00ffffff-no-rj-mo', 
-            price: 2098563
-          }, {
-              name: 'The Slo Mo Guys',
-              channel_logo_url: 'https://lh3.googleusercontent.com/a-/ACSszfFNsz9My-c_EOzCS1W9DaVTUrN0HpmtJ1hcRQ=s176-c-k-c0x00ffffff-no-rj-mo',
-              price: 582390
-          }, {
-              name: 'Casually Explained',
-              channel_logo_url: 'https://lh3.googleusercontent.com/a-/ACSszfHXxQy8LtjoqOlVWlLVHdv_G-fK50lC1dWqUA=s176-c-k-c0x00ffffff-no-rj-mo',
-              price: 382098
-          }, {
-              name: 'Internet Historian',
-              channel_logo_url: 'https://lh3.googleusercontent.com/a-/ACSszfE0C5KFRaoB5XSXG3VC0qYs4j3D87FB22neyA=s176-c-k-c0x00ffffff-no-rj-mo',
-              price: 97854
-          },
-      ],
+      */
+      currentLineup: [],
       player_team: [],
       total_budget: 5000000,
       total_team_price: 0,
       submit_ready: false,
     }
+  },
+  mounted() {
+      this.currentLineup = JSON.parse(JSON.stringify(this.$store.state.next_team));
   },
   methods: {
     formatMoney(aNumber) {
@@ -96,9 +84,12 @@ export default {
             return 'submit_button';
         }
         return 'submit_button_cancel';
+    },
+    saveAndGoHome() {
+        this.$refs.lu.save();
+        this.$router.push({ name: 'Dashboard'});      
     }
-  }
-  
+  },
 }
 </script>
 

@@ -65,7 +65,13 @@
 	    </v-tabs>
 
   </v-container>
+	   <router-link to="/team">
+	 	<div class="backToTeam">
+			 Go Back To Team
+		</div>
+	 </router-link>
    </v-card>
+	 
 </template>
 
 <script>
@@ -140,3 +146,13 @@ export default {
   }
 }
 </script>
+<style scoped>
+.backToTeam {
+	width: 100%;
+  background-color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  color: black;
+}
+</style>

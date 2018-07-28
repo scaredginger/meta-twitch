@@ -13,7 +13,7 @@
     <v-container grid-list-md text-xs-center>
       <v-layout row style="position:relative;">
 
-          <draggable 
+          <draggable
           style="min-width:100px; min-height:100px;"
           element="v-layout" wrap justify-center v-model="channels" :options="{group:'.item'}" v-if="editable">
 
@@ -26,9 +26,13 @@
           </v-flex>
 
 
-          <h1 style="text-align:center;position:absolute;bottom:10px;left:0px;width:100%;" v-if="channels.length === 0">
+          <h2 style="text-align:center;bottom:10px;left:0px;width:100%;" v-if="channels.length === 0 && editable">
             Drag players into your team from your inventory
-          </h1>
+          </h2>
+
+          <h2 style="text-align:center;bottom:10px;left:0px;width:100%;" v-if="channels.length === 0 && !editable">
+            No Players in Team
+          </h2>
           
 
       </v-layout>
@@ -63,11 +67,17 @@ export default {
   },
   data() {
     return {
-
     }
   },
-  mounted() {
-
-  },
+  methods: {
+    save() {
+      this.$store.commit('emptyNext', {data: null});
+      for(let i = 0; i < this.$props.channels.length; i += 1) {
+        this.$store.commit('addNextTeam', {
+        channel: this.$props.channels[i]
+        });
+      }
+    }
+  }
 }
 </script>

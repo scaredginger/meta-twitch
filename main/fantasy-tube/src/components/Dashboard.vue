@@ -253,6 +253,9 @@ export default {
   },
   mounted() {
     this.username = this.$store.state.username;
+    if (this.$store.state.next_team != null && this.$store.state.next_team != undefined) {
+      this.currentLineup = this.$store.state.next_team;
+    }
   },
   methods: {
     gameView() {

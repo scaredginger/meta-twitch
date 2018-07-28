@@ -10,13 +10,20 @@
       <h3 class="headline mb-0 white--text">Your inventory</h3>
     </v-card-title>
 
-    <v-container>
+    <v-container v-if="players.length !== 0">
      <v-layout row wrap>
         <draggable element="v-layout" wrap v-model="players" :options="{group:'.item'}">
             <ChannelThumbnail v-for="x in players" :key="x.name" :channel="x"></ChannelThumbnail>
         </draggable>
       </v-layout>
     </v-container>
+
+    <v-container v-if="players.length === 0">
+      <v-layout>
+        <h4> No players in inventory, buy players in the market. </h4>
+      </v-layout>
+    </v-container>
+
   </v-card>
 
 </template>
@@ -46,9 +53,12 @@ export default {
     }
   },
   mounted() {
+    this.players = this.$store.state.inventory;
+    /*
     fetch(`http://meta-twitch.tech/inventory/${this.username}`).then((data) => {
       this.players = data;
     });
+    */
   }
 }
 </script>
@@ -76,5 +86,9 @@ export default {
 }
 .player_text {
   font-size: 1rem;
+}
+h4 {
+  color: white;
+  margin-left: -20%;
 }
 </style>

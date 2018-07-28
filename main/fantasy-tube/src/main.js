@@ -58,6 +58,9 @@ const store = new Vuex.Store({
         }
       }
     },
+    emptyNext(context, data) {
+      context.next_team = [];
+    },
     changeUsername(context, data) {
       context.username = data.username;
     }

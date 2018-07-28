@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="header"><a href="/"><h2>MetaTwitch</h2></a></div>
+    <div class="header"><router-link to="/dashboard"><h2>MetaTwitch</h2></router-link></div>
     <router-view/>
   </div>
 </template>
@@ -33,11 +33,11 @@ body {
   color: #ffffff;
   background-color: rgb(75, 56, 122);
 }
-.header a {
+.header h2 {
   text-decoration: none;
   color: white;
 }
-.header a:hover {
+.header h2 {
   text-decoration: none;
   color: white;
 }
