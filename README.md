@@ -1,4 +1,6 @@
 # Unihack 2018
 
-## fantasy-tube
-Fantasy sports, but with YouTube
+## Meta Twitch
+Fantasy sports, but with twitch
+
+(Most of the development is on the player-ui branch)
