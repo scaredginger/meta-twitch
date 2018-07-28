@@ -11,12 +11,6 @@
       </div>
     </div>
   </div>
-  <div>
-    <ChannelThumbnail v-bind:channel="test" active="true"></ChannelThumbnail>
-    <ChannelThumbnail v-bind:channel="test"></ChannelThumbnail>
-    <ChannelThumbnail v-bind:channel="test"></ChannelThumbnail>
-    <ChannelThumbnail v-bind:channel="test"></ChannelThumbnail>
-  </div>
 
 </template>
 
