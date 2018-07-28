@@ -15,7 +15,7 @@
     <div class="section">
       <div class="graph-sidebar">
         <div class="user1">
-          {{ username1 }} 
+          {{ this.$store.username }} 
         </div>
         <div class="user2">
           {{ username2 }} 
@@ -29,8 +29,8 @@
     Lineups
     <div class="large-section">
       <div class="almost_half lineups">
-        {{ username1 }}
-        <LineUp :username="username1"/>
+        {{ this.$store.username }}
+        <LineUp :username="this.$store.username"/>
       </div>
       <div class="almost_half lineups">
         {{ username2 }}
@@ -54,42 +54,10 @@ export default {
     return {
       score1: 260000,
       score2: 4983249,
-      username1: 'etopiei',
       username2: 'scaredginger',
       graph_data: []
     }
   },
-  mounted() {
-    if (this.$route.params.username != '' && this.$route.params.username != null && this.$route.params.username != undefined) {
-      this.username1 = this.$route.params.username;
-    }
-    // here get username2 first via an endpoint, then do the next query
-    /*
-    fetch(`http://meta-twitch.tech/game-data/${this.username1}/${this.username2}`).then((data) => {
-      this.graph_data = data;
-    });
-    let ctx = document.getElementById('myChart').getContext('2d');
-    let myChart = new Chart(ctx, {
-      type: 'line',
-      data: [{
-        x: this.graph_data['player1-x'],
-        y: this.graph_data['player1-y']
-        }, {
-        x: this.graph_data['player2-x'],
-        y: this.graph_data['player2-y']
-      }],
-      options: {
-        scales: {
-          xAxes: [{
-            time: {
-              unit: 'month'
-            }
-          }]
-        }
-      }
-    });
-    */
-  }
 }
 </script>
 

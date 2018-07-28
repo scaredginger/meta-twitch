@@ -2,9 +2,9 @@
   <div class="dashboard-container">
     <div class="user_data">
       Current Lineup
-      <LineUp :username="this.$route.params.username" :today="true"/><br>
+      <LineUp :username="this.$store.username" :today="true"/><br>
       Tomorrow's Lineup
-      <LineUp :username="this.$route.params.username" :today="false"/><br>
+      <LineUp :username="this.$store.username" :today="false"/><br>
       All Time Stats
       <div class="stat_view"> 
         <span>Current Value: ${{ user_money }}</span>
@@ -32,25 +32,21 @@ export default {
   },
   data() {
     return {
-      username: '',
       user_money: 73428243,
       user_ranking: 563,
       user_wins: 124,
       user_matches: 306
     }
   },
-  mounted() {
-    this.username = this.$route.params.username;
-  },
   methods: {
     gameView() {
-      this.$router.push({ name: 'GameView', params: { username: this.username }})
+      this.$router.push({ name: 'GameView'})
     },
     tomorrowView() {
-      this.$router.push({ name: 'TomorrowView', params: { username: this.username }})
+      this.$router.push({ name: 'TomorrowView'})
     },
     marketView() {
-      this.$router.push({ name: 'Market', parms: { username: this.username}})
+      this.$router.push({ name: 'Market'})
     }
   }
 }

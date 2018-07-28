@@ -18,7 +18,10 @@ export default {
   },
   methods: {
     goToHome() {
-      this.$router.push({ name: 'Dashboard', params: { username: this.username }})
+      this.$store.commit('changeUsername', {
+        username: this.username
+      });
+      this.$router.push({ name: 'Dashboard'});
     }
   }
 }

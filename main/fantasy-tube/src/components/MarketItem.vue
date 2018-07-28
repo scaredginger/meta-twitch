@@ -20,8 +20,8 @@
 	      <v-flex>
 	      	<v-layout row>
 	      		<v-flex style="text-align:right">
-		    		<v-btn large color="primary">Add to team</v-btn>
-		    		<v-btn large color="orange">Sell</v-btn>
+		    		<v-btn @click="addToTeam()" large color="primary">Add to Inventory</v-btn>
+		    		<v-btn @click="removeFromTeam()" large color="orange">Sell from Inventory</v-btn>
 		    	</v-flex>
 	      	</v-layout>
 
@@ -80,19 +80,28 @@ export default {
   },
   data() {
   	return {
-  		channel: {}
+			channel: {},
+			username: ''
   	}
   },
   methods: {
-
+		addToTeam() {
+			// add to local storage
+			this.$store.commit('addInventory', {
+				channel: this.channel,
+			});
+		},
+		removeFromTeam() {
+			// remove from local storage
+			this.$store.commit('removeInventory', {
+				channel_name: this.channel.name
+			});
+		}
   },
   mounted() {
-  	// console.log("MarketItem", this.$route.params.channelId);
-  	if (this.$route.params.channelId) {
-  		this.channel = {
-  			name: 'Channel ' + this.$route.params.channelId, channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/69ead2c6-2e23-4ec3-bb9b-5a866c03cc21-profile_image-50x50.jpg', price: 239492
-  		}
-  	}
+		// console.log("MarketItem", this.$route.params.channelId);
+		this.channel = this.$route.params.channel;
+		this.username = this.$route.params.username;
   }
 }
 </script>

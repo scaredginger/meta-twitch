@@ -57,16 +57,16 @@
 		      :custom-filter="customFilter"
 		    >
 		      <template slot="items" slot-scope="props">
-		        <td>{{ props.item.name }}</td>
-		        <td>1.2 M</td>
-		        <td >3.6 M</td>
-		        <td
+		        <td @click="goToDetailView(props.item)">{{ props.item.name }}</td>
+		        <td @click="goToDetailView(props.item)">1.2 M</td>
+		        <td @click="goToDetailView(props.item)" >3.6 M</td>
+		        <td @click="goToDetailView(props.item)"
 		        class="text-xs-right">${{ props.item.price }}</td>
 		        <td 
 		        class="text-xs-left"
 		        style="color:green;">+5%</td>
 
-		        <td class="justify-center layout px-0">
+		        <td @click="goToDetailView(props.item)" class="justify-center layout px-0">
 		          <v-icon
 		            small
 		            v-if="!props.item.owned"
@@ -128,7 +128,10 @@ export default {
 
   		search = search.toString().toLowerCase();
   		return items.filter(row => (row.name.indexOf(search) >= 0 && (row.price <= this.price[1] && row.price >= this.price[0])))
-  	}
+		},
+		goToDetailView(item) {
+			this.$router.push({name: 'MarketItem', params: {channel: item}})
+		}
   }
 }
 </script>
