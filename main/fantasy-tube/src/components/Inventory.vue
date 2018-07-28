@@ -2,29 +2,35 @@
 </style>
 
 <template>
-  <div class="players_container">
-    <div @click="$emit(player.name)" class="player_object" v-for="player in players" :key="player.id">
-      <div class="player_text">
-      <img :src="player.channel_logo_url" class="logo"><br>
-      @{{ player.name }} <br>
-      Price: ${{ player.price }}
-      </div>
-    </div>
-  </div>
+  <v-card >
+    <v-card-title primary-title>
+      <h3 class="headline mb-0 white--text">Your inventory</h3>
+    </v-card-title>
+
+    <v-container>
+     <v-layout row wrap>
+        <draggable element="v-flex" v-model="players" :options="{group:'.item'}">
+          <ChannelThumbnail v-for="channel in players" :channel="channel"></ChannelThumbnail>
+        </draggable>
+      </v-layout>
+    </v-container>
+  </v-card>
 
 </template>
 
 <script>
 import ChannelThumbnail from '@/components/ChannelThumbnail.vue'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'Inventory',
   components: {
-    ChannelThumbnail
+    ChannelThumbnail,
+    draggable
   },
   data() {
     return {
-      //players: [],
+      inventory: [],
       username: 'test',
       players: [
         {name: 'test', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/69ead2c6-2e23-4ec3-bb9b-5a866c03cc21-profile_image-50x50.jpg', price: 239492},
