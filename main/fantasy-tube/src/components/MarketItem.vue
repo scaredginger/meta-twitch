@@ -20,8 +20,8 @@
 	      <v-flex>
 	      	<v-layout row>
 	      		<v-flex style="text-align:right">
-		    		<v-btn large color="primary">Add to team</v-btn>
-		    		<v-btn large color="orange">Sell</v-btn>
+		    		<v-btn @click="addToTeam()" large color="primary">Add to team</v-btn>
+		    		<v-btn @click="removeFromTeam()" large color="orange">Sell</v-btn>
 		    	</v-flex>
 	      	</v-layout>
 
@@ -92,6 +92,18 @@ export default {
     }
   },
   methods: {
+		addToTeam() {
+			// add to local storage
+			this.$store.commit('addInventory', {
+				channel: this.channel,
+			});
+		},
+		removeFromTeam() {
+			// remove from local storage
+			this.$store.commit('removeInventory', {
+				channel_name: this.channel.name
+			});
+		}	
   	updateChannelData: function () {
   		// console.log("MarketItem", this.$route.params.channelId);
 	  	let k = this.$route.params.channelId;

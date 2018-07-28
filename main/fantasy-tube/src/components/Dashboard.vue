@@ -169,7 +169,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn icon @click="expandYesterday = !expandYesterday">
-                <v-icon>{{ expandYesterday ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                <v-icon>{{ expandYesterday ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
               </v-btn>
               <v-btn icon>
                 <v-icon>close</v-icon>
@@ -186,7 +186,7 @@
 
             <v-container>
               <v-layout row wrap justify-center>
-                <v-flex><h1>Nazaire</h1></v-flex>
+                <v-flex><h1>{{ username }}</h1></v-flex>
                 <v-flex><h1>Opposition</h1></v-flex>
               </v-layout>
               <v-layout row wrap justify-space-between>
@@ -252,7 +252,7 @@ export default {
     }
   },
   mounted() {
-    this.username = this.$route.params.username;
+    this.username = this.$store.state.username;
   },
   methods: {
     gameView() {
@@ -264,6 +264,6 @@ export default {
     marketView() {
       this.$router.push({ name: 'Market', parms: { username: this.username}})
     }
-  }
+  },
 }
 </script>
