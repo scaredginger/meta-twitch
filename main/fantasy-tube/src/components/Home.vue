@@ -40,7 +40,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: rgb(75, 56, 122);
 }
 .goto {
   margin-top: 2rem;

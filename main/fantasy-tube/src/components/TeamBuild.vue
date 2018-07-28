@@ -112,14 +112,14 @@ export default {
     min-height: 200px;
 }
 .a_title {
-    background-color:#ec6666;
+    background-color:#565656;
     color: white;
     font-size: 1.4rem;
     padding-top: 16px;
     padding-bottom: 16px;
 }
 .team_title {
-    background-color: #4690ad;
+    background-color: #565656;
 }
 ul {
     margin: 0;
