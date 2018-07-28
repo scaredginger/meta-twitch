@@ -6,6 +6,10 @@
 </template>
 
 <script>
+import market from '@/assets/market.json'
+
+window.market = market;
+
 export default {
   name: 'App'
 }

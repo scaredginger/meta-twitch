@@ -37,8 +37,8 @@
 					<v-flex>
 			    		<v-range-slider
 	            			v-model="price"
-	            			:max="10000000"
-	            			:min="0"
+	            			v-bind:max="maxPrice"
+	            			v-bind:min="minPrice"
 	            			:step="10000"
 	            			style=" width: 300px;"
 	          			></v-range-slider>
@@ -56,17 +56,18 @@
 		      :search="search"
 		      :custom-filter="customFilter"
 		    >
-		      <template slot="items" slot-scope="props">
+		      <template slot="items" slot-scope="props" >
+
 		        <td>{{ props.item.name }}</td>
-		        <td>1.2 M</td>
-		        <td >3.6 M</td>
+		        <td>{{props.item.followers[29]}}</td>
+		        <td >{{props.item.avgvmscore}}</td>
 		        <td
-		        class="text-xs-right">${{ props.item.price }}</td>
+		        class="text-xs-right">${{ props.item.price[29] }}</td>
 		        <td 
 		        class="text-xs-left"
-		        style="color:green;">+5%</td>
+		        v-bind:style="{ color: props.item.change > 0 ? 'green' : 'red' }">{{props.item.change}}%</td>
 
-		        <td class="justify-center layout px-0">
+		        <td class="justify-center layout px-0" @click="$router.push({ path: '/market/channel/' + props.item.name })">
 		          <v-icon
 		            small
 		            v-if="!props.item.owned"
@@ -94,6 +95,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Market',
   props: {
@@ -102,33 +104,53 @@ export default {
   data() {
   	return {
   		search: '',
-  		price: [20000, 10000000],
+  		price: [0, 250000],
+  		minPrice: 0,
+  		maxPrice: 250000,
   		headers: [
 	        {
 	          text: 'Channel',
 	          align: 'left',
 	          value: 'name'
 	        },
-	        { text: 'Followers', value: 'followers' },
-	        { text: 'Daily views (avg)', value: 'daily_views' },
-	        { text: 'Price', value: 'price' },
+	        { text: 'Followers', value: 'followers[29]' },
+	        { text: 'Daily vm (avg)', value: 'avgvmscore' },
+	        { text: 'Price', value: 'price[29]' },
 	        { text: '% Change', value: 'change' }
 	    ],
+	    market: window.market,
   		players: [
-        {name: 'test', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/69ead2c6-2e23-4ec3-bb9b-5a866c03cc21-profile_image-50x50.jpg', price: 239492, owned:false},
-        {name: 'other_user', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/d4837db8-36a0-4949-b937-837bf5c79383-profile_image-50x50.png', price: 342983, owned:false},
-        {name: 'third_user', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/bbecd8c4-141c-422b-8285-e3f8cae79dbb-profile_image-50x50.jpg', price: 9849537, owned:true},
-        {name: 'scaredginger', channel_logo_url: 'https://static-cdn.jtvnw.net/user-default-pictures/bb97f7e6-f11a-4194-9708-52bf5a5125e8-profile_image-70x70.jpg', price: 9001, owned:false},
-        {name: 'etopiei', channel_logo_url: 'https://avatars1.githubusercontent.com/u/17671663?s=460&v=4', price: 9120803, owned:false}
-      ]
+
+	    ]
   	}
   },
   methods: {
   	customFilter(items, search, filter) {
 
   		search = search.toString().toLowerCase();
-  		return items.filter(row => (row.name.indexOf(search) >= 0 && (row.price <= this.price[1] && row.price >= this.price[0])))
+  		return items.filter(row => (row.name.indexOf(search) >= 0 && (row.price[29] <= this.price[1] && row.price[29] >= this.price[0])))
   	}
+  },
+  mounted() {
+
+  	for (var k in this.market.twitch){
+	    const price = this.market.twitch[k]
+
+	    const vmscore = this.market.vm[k]
+	    const avgvmscore = Math.round(vmscore.reduce((a, b) => a + b, 0) / 30, 0);
+
+	    const followers = this.market.followers[k]
+
+	    const change = Math.round(((price[29] - price[28]) / price[28]) * 1000 ) / 10;
+	    this.players.push({
+	    	name: k,
+	    	price: price.map(x => Math.round(x, 0)),
+	    	vmscore: vmscore.map(x => Math.round(x, 0)),
+	    	avgvmscore: avgvmscore,
+	    	followers: followers.map(x => Math.round(x, 0)),
+	    	change: change
+	    })
+	}
   }
 }
 </script>

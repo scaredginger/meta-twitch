@@ -1,4 +1,7 @@
-<style scoped>
+<style scoped lang="scss">
+.thumbnail {
+  margin:20px;
+}
 </style>
 
 <template>
@@ -9,8 +12,8 @@
 
     <v-container>
      <v-layout row wrap>
-        <draggable element="v-flex" v-model="players" :options="{group:'.item'}">
-          <ChannelThumbnail v-for="channel in players" :channel="channel"></ChannelThumbnail>
+        <draggable element="v-layout" wrap v-model="players" :options="{group:'.item'}">
+            <ChannelThumbnail v-for="x in players" :key="x.name" :channel="x"></ChannelThumbnail>
         </draggable>
       </v-layout>
     </v-container>

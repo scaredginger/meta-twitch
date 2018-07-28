@@ -28,19 +28,20 @@
 	      	<v-layout row>
 	      		<v-flex>
 			        <v-card xs2>
-			          <v-card-text>Followers <v-spacer></v-spacer> 346 K<v-spacer></v-spacer><span style="color:green">+1.1K</span> </v-card-text>
+			          <v-card-text>Followers <v-spacer></v-spacer> {{channel.followers[29]}}<v-spacer></v-spacer><span v-bind:style="{ color: channel.newFollowers > 0 ? 'green' : 'red' }">{{channel.newFollowers}}</span> </v-card-text>
 			        </v-card>
 			      </v-flex>
 
 			      <v-flex>
 			        <v-card xs2>
-			          <v-card-text>Value <v-spacer></v-spacer>$100 K <v-spacer></v-spacer><span style="color:green">+5%</span></v-card-text>
+			          <v-card-text>Value <v-spacer></v-spacer>{{channel.price[29]}} <v-spacer></v-spacer><span
+			          	v-bind:style="{ color: channel.changePrice > 0 ? 'green' : 'red' }">{{channel.changePrice}}%</span></v-card-text>
 			        </v-card>
 			      </v-flex>
 
 			      <v-flex>
 			        <v-card xs2>
-			          <v-card-text>Daily VMs (avg) <v-spacer></v-spacer>1.23 K<v-spacer></v-spacer><span style="color:green">+0.3K</span></v-card-text>
+			          <v-card-text>Daily VMs (avg) <v-spacer></v-spacer>{{channel.avgvmscore}}<v-spacer></v-spacer><span v-bind:style="{ color: channel.dailyVMChange > 0 ? 'green' : 'red' }">{{channel.dailyVMChange}}%</span></v-card-text>
 			        </v-card>
 			      </v-flex>
 	      	</v-layout>
@@ -80,19 +81,50 @@ export default {
   },
   data() {
   	return {
-  		channel: {}
-  	}
-  },
-  methods: {
+  		channel: {
 
-  },
-  mounted() {
-  	// console.log("MarketItem", this.$route.params.channelId);
-  	if (this.$route.params.channelId) {
-  		this.channel = {
-  			name: 'Channel ' + this.$route.params.channelId, channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/69ead2c6-2e23-4ec3-bb9b-5a866c03cc21-profile_image-50x50.jpg', price: 239492
   		}
   	}
+  },
+  watch: {
+    '$route.params.channelId': function (channelId) {
+      this.updateChannelData();
+    }
+  },
+  methods: {
+  	updateChannelData: function () {
+  		// console.log("MarketItem", this.$route.params.channelId);
+	  	let k = this.$route.params.channelId;
+
+	    const price = window.market.twitch[k]
+
+	    const vmscore = window.market.vm[k]
+	    const avgvmscore = Math.round(vmscore.reduce((a, b) => a + b, 0) / 30, 0);
+
+	    const followers = window.market.followers[k].map(x => Math.round(x, 0));
+
+	    const changePrice = Math.round(((price[29] - price[28]) / price[28]) * 1000 ) / 10;
+	    const newFollowers = followers[29] - followers[28];
+
+	    const prevavgvmscore = Math.round(vmscore.slice(0,29).reduce((a, b) => a + b, 0) / 29, 0);
+	    const dailyVMChange = Math.round((avgvmscore - prevavgvmscore) / prevavgvmscore * 1000) / 10;
+
+		this.channel = {
+			name: this.$route.params.channelId,
+			followers: followers,
+			price: price.map(x => Math.round(x, 0)),
+			changePrice: changePrice,
+			newFollowers: newFollowers,
+			vmscore: vmscore.map(x => Math.round(x, 0)),
+			avgvmscore: avgvmscore,
+			dailyVMChange: dailyVMChange
+		}
+		console.log(this.channel)
+  	}
+  },
+  mounted() {
+  	this.updateChannelData();
+  	console.log("mounted item")
   }
 }
 </script>
