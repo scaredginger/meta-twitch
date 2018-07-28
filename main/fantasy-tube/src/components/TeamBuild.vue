@@ -1,39 +1,45 @@
+<style scoped lang="scss">
+  .dark-clickable, .light-clickable {
+    transition: background 0.5s, color 0.5s;
+    cursor:pointer;
+
+  }
+
+  .light-clickable:hover {
+    background:rgba(240,240,240,1);
+    color:rgb(80, 80, 80);
+  }
+
+  .dark-clickable:hover {
+    background: rgba(80, 80, 80, 1) !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration:inherit;
+  }
+</style>
+
 <template>
     <div>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-        <div class="container">
-			<div id="player_list">
-				<div class="a_title">
-					<h2> My Streamers </h2>
-				</div>
-					<draggable :model="market_data" id="player_list_el" class="list-group" :options="{group:'people'}">
-                        <li v-for="channels in market_data" :key="channels.name">
-                            <img class="channel_logo" :src='channels.channel_logo_url'>
-                            {{ channels.name }}
-                            <span class="price"> {{ formatMoney(channels.price) }} </span>
-                        </li>
-					</draggable>
-			</div>
-			<div id="team_list">
-				<div class="a_title team_title">
-					<h2> Active Team </h2>
-				</div>
-				<draggable :model="player_team" id="team_list_el" class="list-group" :options="{group:'people'}">
-				</draggable>
-                <li v-for="channels in player_team" :key="channels.name">
-                    <img class="channel_logo" :src='channels.channel_logo_url'>
-                        {{ channels.name }}
-                    <span class="price"> ${{ channels.price }} </span>
-                </li>
-			</div>
-		</div>
-        <button :class="getSubmitClass()"> Submit My Match Team </button>
+
+      <LineUp title="Tomorrow's Lineup" class="grey lighten-2" :channels="currentLineup" :editable="true"/>
+      <Inventory class="grey darken-2"></Inventory>
+
+
+    <router-link to="/market">
+      <v-container fluid class="light-clickable">
+        <h3 class="display-1">VIEW MARKET</h3>
+      </v-container>
+    </router-link>
     </div>
 </template>
 
 <script>
 
-import draggable from 'vuedraggable'
+import LineUp from '@/components/LineUp'
+import Inventory from '@/components/Inventory'
+
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -44,10 +50,18 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default {
   name: 'TeamBuild',
   components: {
-      draggable
+      LineUp,
+      Inventory
   },
   data () {
     return {
+      currentLineup: [
+        {name: 'test', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/69ead2c6-2e23-4ec3-bb9b-5a866c03cc21-profile_image-50x50.jpg', price: 239492},
+        {name: 'other_user', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/d4837db8-36a0-4949-b937-837bf5c79383-profile_image-50x50.png', price: 342983},
+        {name: 'third_user', channel_logo_url: 'https://static-cdn.jtvnw.net/jtv_user_pictures/bbecd8c4-141c-422b-8285-e3f8cae79dbb-profile_image-50x50.jpg', price: 9849537},
+        {name: 'scaredginger', channel_logo_url: 'https://static-cdn.jtvnw.net/user-default-pictures/bb97f7e6-f11a-4194-9708-52bf5a5125e8-profile_image-70x70.jpg', price: 9001},
+        {name: 'etopiei', channel_logo_url: 'https://avatars1.githubusercontent.com/u/17671663?s=460&v=4', price: 9120803}
+      ],
       market_data: [
           {
             name: 'MKBHD',
@@ -88,80 +102,3 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.container {
-    width: 100%;
-    display: flex;    
-    padding: 0;
-}
-#player_list {
-    flex-grow: 2;
-    height: 90%;
-    text-align: center;
-}
-#team_list {
-    flex-grow: 2;
-    height: 90%;
-    text-align: center;
-}
-#player_list_el {
-    min-height: 200px;
-}
-#team_list_el {
-    min-height: 200px;
-}
-.a_title {
-    background-color:#565656;
-    color: white;
-    font-size: 1.4rem;
-    padding-top: 16px;
-    padding-bottom: 16px;
-}
-.team_title {
-    background-color: #565656;
-}
-ul {
-    margin: 0;
-    border: 0 solid silver;
-    border-width: 0 0 1px 1px;
-    list-style-type: none;
-}
-li {
-    padding: 20px;
-    border: 0 solid silver;
-    border-width: 1px 1px 1px 1px;
-    list-style: none;
-}
-li:hover {
-	cursor: move;
-}
-.channel_logo {
-	height: 60px;	
-	border-radius: 50%;
-}
-.price {
-    color: green;
-    float: right;
-    line-height: 60px;
-}
-.submit_button {
-    background-color: #4690ad;
-    border-radius: 8px;
-    color: white;
-    width: 80%;
-    padding: 20px;
-    margin-top: 2%;
-}
-.submit_button_cancel {
-    background-color: #d0d1d2;
-    color: black;
-    border-radius: 8px;
-    width: 80%;
-    padding: 20px;
-    margin-top: 2%;
-}
-.submit_button_cancel:hover {
-    cursor: default;
-}
-</style>
