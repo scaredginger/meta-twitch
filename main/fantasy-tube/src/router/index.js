@@ -10,6 +10,7 @@ import SignIn from '@/components/SignIn'
 import Home from '@/components/Home'
 import Inventory from '@/components/Inventory'
 import TomorrowView from '@/components/TomorrowView'
+import StatsView from '@/components/StatsView'
 Vue.use(Router) 
  
 export default new Router({ 
@@ -43,6 +44,11 @@ export default new Router({
       path: '/tomorrow',
       name: 'TomorrowView',
       component: TomorrowView
+    },
+    {
+      path: '/stats',
+      name: 'StatsView',
+      component: StatsView
     },
     {
       path: '/game',
