@@ -1,0 +1,48 @@
+.container {
+    margin-top: 1%;
+    width: 99%;
+    display: flex;    
+}
+#player_list {
+    flex-grow: 2;
+    height: 100%;
+    text-align: center;
+}
+#team_list {
+    flex-grow: 2;
+    height: 100%;
+    text-align: center;
+}
+.a_title {
+    background-color:#ec6666;
+    color: white;
+    font-size: 1.4rem;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.team_title {
+    background-color: #4690ad;
+}
+ul {
+    margin: 0;
+    list-style: none;
+    border: 0 solid silver;
+    border-width: 0 0 1px 1px;
+}
+li {
+    padding: 20px;
+    border: 0 solid silver;
+    border-width: 1px 1px 0 0;
+}
+li:hover {
+	cursor: move;
+}
+.channel_logo {
+	height: 60px;	
+	border-radius: 50%;
+}
+.price {
+    color: green;
+    float: right;
+    line-height: 60px;
+}
