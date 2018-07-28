@@ -186,7 +186,7 @@
 
             <v-container>
               <v-layout row wrap justify-center>
-                <v-flex><h1>Nazaire</h1></v-flex>
+                <v-flex><h1>{{ username }}</h1></v-flex>
                 <v-flex><h1>Opposition</h1></v-flex>
               </v-layout>
               <v-layout row wrap justify-space-between>
@@ -252,7 +252,7 @@ export default {
     }
   },
   mounted() {
-    this.username = this.$route.params.username;
+    this.username = this.$store.state.username;
   },
   methods: {
     gameView() {
@@ -264,6 +264,6 @@ export default {
     marketView() {
       this.$router.push({ name: 'Market', parms: { username: this.username}})
     }
-  }
+  },
 }
 </script>

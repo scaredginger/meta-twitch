@@ -10,7 +10,7 @@
     <v-container>
      <v-layout row wrap>
         <draggable element="v-flex" v-model="players" :options="{group:'.item'}">
-          <ChannelThumbnail v-for="channel in players" :channel="channel"></ChannelThumbnail>
+          <ChannelThumbnail v-for="channel in players" :key="channel.name" :channel="channel"></ChannelThumbnail>
         </draggable>
       </v-layout>
     </v-container>
