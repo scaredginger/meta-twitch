@@ -169,7 +169,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn icon @click="expandYesterday = !expandYesterday">
-                <v-icon>{{ expandYesterday ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                <v-icon>{{ expandYesterday ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</v-icon>
               </v-btn>
               <v-btn icon>
                 <v-icon>close</v-icon>
