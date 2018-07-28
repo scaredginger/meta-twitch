@@ -8,6 +8,7 @@ import Market from '@/components/Market'
 import SignIn from '@/components/SignIn'
 import Home from '@/components/Home'
 import Inventory from '@/components/Inventory'
+import TomorrowView from '@/components/TomorrowView'
 Vue.use(Router) 
  
 export default new Router({ 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/inventory',
       name: 'Inventory',
       component: Inventory
+    },
+    {
+      path: '/tomorrow',
+      name: 'TomorrowView',
+      componenet: TomorrowView
     },
     {
       path: '/game',
