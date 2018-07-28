@@ -30,6 +30,7 @@ export default {
   margin-left: 15%;
 }
 input {
+  outline: none;
   width: 70%;
   padding-top: 20px;
   border-bottom: solid 1px black;

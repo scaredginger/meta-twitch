@@ -58,6 +58,8 @@ export default {
     }
   },
   mounted() {
+    this.username1 = this.$route.params.username;
+    // here get username2 first via an endpoint, then do the next query
     fetch(`http://meta-twitch.tech/game-data/${this.username1}/${this.username2}`).then((data) => {
       this.graph_data = data;
     });

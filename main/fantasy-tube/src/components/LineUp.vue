@@ -1,6 +1,6 @@
 <template>
 <div>
-  {{ username }}
+  {{ this.$props.username }}
   <div class="lineup_container">
     <div class="player_object" v-for="player in players" :key="player.id">
       <div class="player_text">
@@ -29,22 +29,20 @@ export default {
         {name: 'scaredginger', channel_logo_url: 'https://static-cdn.jtvnw.net/user-default-pictures/bb97f7e6-f11a-4194-9708-52bf5a5125e8-profile_image-70x70.jpg', price: 9001},
         {name: 'etopiei', channel_logo_url: 'https://avatars1.githubusercontent.com/u/17671663?s=460&v=4', price: 9120803}
       ]*/
-      players: []
+      players: [],
+      day_type: ''
     }
   },
   mounted() {
-    fetch(`http://meta-twitch.tech/lineup/${username}/${day_type}`).then((data) => {
+    if (this.$props.today) {
+      this.day_type = 'today';
+    } else {
+      this.day_type = 'tomorrow';
+    }
+    fetch(`http://meta-twitch.tech/lineup/${this.$props.username}/${this.day_type}`).then((data) => {
       this.players = data;
     });
   },
-  computed: {
-    day_type() {
-      if (this.$props.today) {
-        return 'today';
-      }
-      return 'tomorrow';
-    }
-  }
 }
 </script>
 
