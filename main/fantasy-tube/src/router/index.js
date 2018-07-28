@@ -4,6 +4,8 @@ import Home from '@/components/Home'
 import TeamBuild from '@/components/TeamBuild'
 import Inventory from '@/components/Inventory'
 import Market from '@/components/Market'
+import MarketItem from '@/components/MarketItem'
+
 Vue.use(Router)
 
 export default new Router({
@@ -26,7 +28,14 @@ export default new Router({
     {
       path: '/market',
       name: 'Market',
-      component: Market
+      component: Market,
+      children: [
+        { path: 'channel/:channelId',
+          name: 'MarketItem',
+          props: true,
+          component: MarketItem
+        }
+      ]
     }
   ]
 })
