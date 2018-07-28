@@ -17,6 +17,11 @@ export default new Router({
       path: '/team',
       name: 'TeamBuild',
       component: TeamBuild
+    },
+    {
+      path: '/inventory',
+      name: 'Inventory',
+      component: Inventory
     }
   ]
 })
