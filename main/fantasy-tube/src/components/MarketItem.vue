@@ -7,7 +7,6 @@
 
 <template>
    <v-card class="grey darken-3">
-
     <v-container grid-list-md text-xs-center>
 	    <v-layout row wrap>
 
@@ -28,13 +27,13 @@
 	      	<v-layout row>
 	      		<v-flex>
 			        <v-card xs2>
-			          <v-card-text>Followers <v-spacer></v-spacer> {{channel.followers[29]}}<v-spacer></v-spacer><span v-bind:style="{ color: channel.newFollowers > 0 ? 'green' : 'red' }">{{channel.newFollowers}}</span> </v-card-text>
+			          <v-card-text>Followers <v-spacer></v-spacer> {{channel.followers ? channel.followers[29] : 0}}<v-spacer></v-spacer><span v-bind:style="{ color: channel.newFollowers > 0 ? 'green' : 'red' }">{{channel.newFollowers}}</span> </v-card-text>
 			        </v-card>
 			      </v-flex>
 
 			      <v-flex>
 			        <v-card xs2>
-			          <v-card-text>Value <v-spacer></v-spacer>{{channel.price[29]}} <v-spacer></v-spacer><span
+			          <v-card-text>Value <v-spacer></v-spacer>{{channel.price ? channel.price[29] : 0}} <v-spacer></v-spacer><span
 			          	v-bind:style="{ color: channel.changePrice > 0 ? 'green' : 'red' }">{{channel.changePrice}}%</span></v-card-text>
 			        </v-card>
 			      </v-flex>
@@ -50,16 +49,22 @@
 	    </v-layout>
 
 	    <v-tabs  dark>
-	      <v-tab ripple> Followers </v-tab>
-	      <v-tab ripple> Views </v-tab>
+	      <v-tab ripple> Market Price </v-tab>
+	      <v-tab ripple> Daily Followers </v-tab>
+	      <v-tab ripple> Daily View Minutes  </v-tab>
 	      <v-tab-item>
 	      	<v-card flat>
-	          <v-card-text>followers chart</v-card-text>
+	          <canvas ref="priceChart" width="400" height="200"></canvas>
 	        </v-card>
 	      </v-tab-item>
 	      <v-tab-item>
 	      	<v-card flat>
-	          <v-card-text>views chart</v-card-text>
+	          <canvas ref="followersChart" width="400" height="200"></canvas>
+	        </v-card>
+	      </v-tab-item>
+	      <v-tab-item>
+	      	<v-card flat>
+	          <canvas ref="vmChart" width="400" height="200"></canvas>
 	        </v-card>
 	      </v-tab-item>
 	    </v-tabs>
@@ -70,6 +75,9 @@
 
 <script>
 import ChannelThumbnail from '@/components/ChannelThumbnail'
+import Chart from 'chart.js';
+
+var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 export default {
   name: 'MarketItem',
@@ -83,7 +91,10 @@ export default {
   	return {
   		channel: {
 
-  		}
+  		},
+  		vmChart: null,
+  		follChart: null,
+  		priceChart: null
   	}
   },
   watch: {
@@ -106,6 +117,7 @@ export default {
 		},
   	updateChannelData: function () {
   		// console.log("MarketItem", this.$route.params.channelId);
+
 	  	let k = this.$route.params.channelId;
 
 	    const price = window.market.twitch[k]
@@ -131,12 +143,92 @@ export default {
 			avgvmscore: avgvmscore,
 			dailyVMChange: dailyVMChange
 		}
-		console.log(this.channel)
+
+		if (this.follChart && this.vmChart && this.priceChart) {
+			this.follChart.config.data.datasets[0].data = this.channel.followers;
+			this.vmChart.config.data.datasets[0].data = this.channel.vmscore;
+			this.priceChart.config.data.datasets[0].data = this.channel.price;
+			this.follChart.update();
+			this.vmChart.update();
+			this.priceChart.update();
+		}
+  	},
+  	drawGraphs() {
+  		let labels = []
+	  	for (var i = 30; i > 0; i--) {
+	  		const now = new Date();
+	  		now.setDate(now.getDate() - i);
+	  		// labels.push(now.getDate() + "/" + now.getMonth());
+	  		labels.push(days[now.getDay()]);
+	  	}
+
+	  	let vmCtx = this.$refs.vmChart;
+		this.vmChart = new Chart(vmCtx, {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [ 
+				{
+					data: this.channel.vmscore,
+					label: "Total View Minutes",
+					borderColor: "#8e5ea2",
+					steppedLine: true
+				}
+				]
+			},
+			options: {
+
+			}
+		});
+
+		let follCtx = this.$refs.followersChart;
+		this.follChart = new Chart(follCtx, {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [ 
+				{
+					data: this.channel.followers,
+					label: "Followers",
+					borderColor: "#247acc",
+					steppedLine: true
+				}
+				]
+			},
+			options: {
+
+			}
+		});
+
+		let priceCtx = this.$refs.priceChart;
+		this.priceChart = new Chart(priceCtx, {
+			type: 'line',
+			data: {
+				labels: labels,
+				datasets: [ 
+				{
+					data: this.channel.price,
+					label: "Market Price",
+					borderColor: "#247acc",
+					steppedLine: true
+				}
+				]
+			},
+			options: {
+
+			}
+		});
   	}
   },
   mounted() {
   	this.updateChannelData();
-  	console.log("mounted item")
+
+  	this.drawGraphs();
+
+  	console.log(this.vmChart.config.data.datasets[0].data)
+  },
+  render() {
+  	console.log("render", document.getElementById("vmChart"))
   }
 }
 </script>
