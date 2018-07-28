@@ -23,10 +23,10 @@ CREATE TABLE `streams` (
 
 CREATE TABLE `streamMoments` (
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `streamID` int(11) NOT NULL,
+  `streamID` BIGINT  NOT NULL,
   `viewers` int(11) DEFAULT NULL,
   PRIMARY KEY (`time`,`streamID`),
-  KEY `streamID` (`streamID`),
+  KEY `streamID` (`streamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `followerCount` (
