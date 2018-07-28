@@ -1,20 +1,22 @@
 {
   "name": "fantasy-tube",
   "version": "1.0.0",
-  "description": "YouTube Fantasy League Vue Project",
-  "author": "etopiei <lj343@icloud.com>",
   "private": true,
   "scripts": {
+    "build": "node build/build.js",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
-    "build": "node build/build.js"
+    "start": "npm run dev"
   },
   "dependencies": {
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vuedraggable": "^2.16.0"
+    "vuedraggable": "^2.16.0",
+    "vuetify": "^1.1.8"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.0.0-beta.49",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -43,6 +45,7 @@
     "shelljs": "^0.7.6",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vue-cli-plugin-vuetify": "^0.1.6",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
@@ -51,13 +54,15 @@
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
   },
-  "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "description": "YouTube Fantasy League Vue Project",
+  "author": "etopiei <lj343@icloud.com>",
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  }
 }

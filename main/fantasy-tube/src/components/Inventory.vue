@@ -1,3 +1,6 @@
+<style scoped>
+</style>
+
 <template>
   <div class="players_container">
     <div @click="$emit(player.name)" class="player_object" v-for="player in players" :key="player.id">
@@ -8,11 +11,17 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
+import ChannelThumbnail from '@/components/ChannelThumbnail.vue'
+
 export default {
   name: 'Inventory',
+  components: {
+    ChannelThumbnail
+  },
   data() {
     return {
       //players: [],
