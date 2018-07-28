@@ -12,6 +12,9 @@
   <div class="goto">
     <router-link to="/match">Start a Match</router-link>
   </div>
+  <div class="goto">
+    <router-link to="/game">Current Game View</router-link>
+  </div>
   </div>
 </template>
 
@@ -22,7 +25,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
-  }
+  },
 }
 </script>
 
