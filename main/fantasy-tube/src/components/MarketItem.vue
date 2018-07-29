@@ -69,6 +69,19 @@
 	      </v-tab-item>
 	    </v-tabs>
 
+	    <v-snackbar
+	      v-model="snackbar"
+	    >
+	      You just purchased {{channel.name}} for ${{channel.price ? channel.price[29] : 0}}
+	      <v-btn
+	        dark
+	        flat
+	        @click="snackbar = false"
+	      >
+	        Close
+	      </v-btn>
+	    </v-snackbar>
+
   </v-container>
 	   <router-link to="/team">
 	 	<div class="backToTeam">
@@ -98,6 +111,7 @@ export default {
   		channel: {
 
   		},
+  		snackbar: false,
   		vmChart: null,
   		follChart: null,
 			priceChart: null,
@@ -112,6 +126,7 @@ export default {
   methods: {
 		addToTeam() {
 			// add to local storage
+			this.snackbar = true;
 			this.$store.commit('addInventory', {
 				channel: this.channel,
 			});
@@ -150,7 +165,8 @@ export default {
 			newFollowers: newFollowers,
 			vmscore: vmscore.map(x => Math.round(x, 0)),
 			avgvmscore: avgvmscore,
-			dailyVMChange: dailyVMChange
+			dailyVMChange: dailyVMChange,
+			channel_logo_url: window.market.logos[k]
 		}
 
 		if (this.follChart && this.vmChart && this.priceChart) {
@@ -180,7 +196,7 @@ export default {
 				{
 					data: this.channel.vmscore,
 					label: "Total View Minutes",
-					borderColor: "#8e5ea2",
+					borderColor: "#86b300",
 					steppedLine: true
 				}
 				]
@@ -199,7 +215,7 @@ export default {
 				{
 					data: this.channel.followers,
 					label: "Followers",
-					borderColor: "#247acc",
+					borderColor: "#8e5ea2",
 					steppedLine: true
 				}
 				]

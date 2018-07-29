@@ -13,7 +13,7 @@
 
 	    <v-card>
 		    <v-card-title>
-		      Market
+		      <h1>Market</h1>
 		      <v-spacer></v-spacer>
 
 		      <v-text-field

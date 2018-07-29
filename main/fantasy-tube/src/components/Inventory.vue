@@ -19,8 +19,10 @@
     </v-container>
 
     <v-container v-if="players.length === 0">
-      <v-layout>
-        <h4> No players in inventory, buy players in the market. </h4>
+      <v-layout row justify-center>
+        <v-flex>
+          <h4> No players in inventory, buy players in the market. </h4>
+        </v-flex>
       </v-layout>
     </v-container>
 
@@ -89,6 +91,5 @@ export default {
 }
 h4 {
   color: white;
-  margin-left: -20%;
 }
 </style>

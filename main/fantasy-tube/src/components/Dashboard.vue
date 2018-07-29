@@ -35,9 +35,9 @@
             <v-card-text>
               Total Value
               <v-spacer></v-spacer> 
-              <h1>$346 K</h1>
+              <h1>$278K</h1>
               <v-spacer></v-spacer>
-              <span style="color:lightgreen;">+1.1K</span>
+              <span style="color:lightgreen;">+0.2K</span>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -59,7 +59,7 @@
             <v-card-text>
               Cash on hand
               <v-spacer></v-spacer> 
-              <h1>$346 K</h1>
+              <h1>$346K</h1>
               <v-spacer></v-spacer>
               <span style="color:lightgreen;">+1.1K</span>
             </v-card-text>
@@ -181,7 +181,7 @@
         <v-flex>
           <v-card class="light-clickable">
             <v-card-title primary-title>
-              <h3 class="headline mb-0">Today's Game</h3><v-spacer></v-spacer><h1>10:00:00</h1>
+              <h3 class="headline mb-0">Today's Game</h3><v-spacer></v-spacer><h1>{{hours}}:{{minutes}}:{{seconds}}</h1>
             </v-card-title>
 
             <v-container>
@@ -195,9 +195,9 @@
               </v-layout>
 
               <div class="grey lighten-2">
-                <br/><br/>
+                <!-- <br/><br/>
                 graph here
-                <br/><br/><br/>
+                <br/><br/><br/> -->
               </div>
 
               <v-layout row wrap>
@@ -234,9 +234,22 @@ export default {
   components: {
     LineUp
   },
+  computed: {
+    seconds() {
+      return Math.round(((this.game_end - this.now) / 1000) % 59);
+    },
+    minutes() {
+      return Math.round(((this.game_end - this.now) / 60000) % 59);
+    },
+    hours() {
+      return Math.round(((this.game_end - this.now) / 360000) % 59);
+    },
+  },
   data() {
     return {
       username: '',
+      game_end: (new Date()).setHours(24),
+      now: 0,
       user_money: 73428243,
       user_ranking: 563,
       user_wins: 124,
@@ -259,6 +272,11 @@ export default {
     if (this.$store.state.next_team != null && this.$store.state.next_team != undefined) {
       this.currentLineup = this.$store.state.next_team;
     }
+
+    // window.setInterval(() => {
+    //     this.now = (new Date()).getTime()
+    // },1000);
+
   },
   methods: {
     gameView() {

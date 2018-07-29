@@ -1,8 +1,15 @@
 <template>
   <div class="sign_in">
     <center>
-    <input v-model="username" type="text" placeholder="Username"><br>
-    <input type="password" placeholder="Password"><br>
+    <v-text-field
+      v-model="username"
+      label="Username"
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Password"
+      type="password"
+    ></v-text-field>
     <button @click="goToHome()"> Submit </button>
     </center>
   </div>

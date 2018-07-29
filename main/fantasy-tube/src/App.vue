@@ -41,4 +41,7 @@ body {
   text-decoration: none;
   color: white;
 }
+a {
+  text-decoration:none;
+}
 </style>
