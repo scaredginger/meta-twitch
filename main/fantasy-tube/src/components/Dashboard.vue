@@ -273,9 +273,9 @@ export default {
       this.currentLineup = this.$store.state.next_team;
     }
 
-    // window.setInterval(() => {
-    //     this.now = (new Date()).getTime()
-    // },1000);
+    window.setInterval(() => {
+        this.now = (new Date()).getTime()
+    },1000);
 
   },
   methods: {
