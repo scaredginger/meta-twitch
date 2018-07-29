@@ -19,8 +19,8 @@
 	      <v-flex>
 	      	<v-layout row>
 	      		<v-flex style="text-align:right">
-		    		<v-btn @click="addToTeam()" large color="primary">Add to team</v-btn>
-		    		<v-btn @click="removeFromTeam()" large color="orange">Sell</v-btn>
+		    		<v-btn @click="addToTeam()" v-if="!inTeam" large color="primary">Add to team</v-btn>
+		    		<v-btn @click="removeFromTeam()" v-if="inTeam" large color="orange">Sell</v-btn>
 		    	</v-flex>
 	      	</v-layout>
 
@@ -100,7 +100,8 @@ export default {
   		},
   		vmChart: null,
   		follChart: null,
-  		priceChart: null
+			priceChart: null,
+			inTeam: false
   	}
   },
   watch: {
@@ -114,13 +115,15 @@ export default {
 			this.$store.commit('addInventory', {
 				channel: this.channel,
 			});
+			this.inTeam = true;
 		},
 		removeFromTeam() {
 			// remove from local storage
 			this.$store.commit('removeInventory', {
 				channel_name: this.channel.name
 			});
-		},
+			this.inTeam = false;
+		},	
   	updateChannelData: function () {
   		// console.log("MarketItem", this.$route.params.channelId);
 
@@ -227,6 +230,14 @@ export default {
   	}
   },
   mounted() {
+
+		const data = this.$store.getters.inventory;
+		for(let i = 0; i < data.length; i += 1) {
+			if (data[i]['name'] == this.channel.name) {
+				this.inTeam = true;
+			}
+		}
+
   	this.updateChannelData();
 
   	this.drawGraphs();
@@ -235,7 +246,9 @@ export default {
   },
   render() {
   	console.log("render", document.getElementById("vmChart"))
-  }
+	},
+
+			
 }
 </script>
 <style scoped>

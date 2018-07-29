@@ -24,6 +24,11 @@ const store = new Vuex.Store({
     next_team: [],
     username: ''
   },
+  getters: {
+    inventory: state => {
+      return state.next_team;
+    }
+  },
   mutations: {
     addInventory(context, data) {
       context.inventory.push(data.channel);
