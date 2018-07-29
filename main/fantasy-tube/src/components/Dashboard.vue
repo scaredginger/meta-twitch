@@ -252,6 +252,9 @@ export default {
     }
   },
   mounted() {
+    if (!this.$store.state.username) {
+      this.$router.push({ name: 'SignIn' })
+    }
     this.username = this.$store.state.username;
     if (this.$store.state.next_team != null && this.$store.state.next_team != undefined) {
       this.currentLineup = this.$store.state.next_team;
