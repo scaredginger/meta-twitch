@@ -169,6 +169,14 @@ export default {
 			channel_logo_url: window.market.logos[k]
 		}
 
+		const data = this.$store.getters.inventory;
+		this.inTeam = false;
+		for(let i = 0; i < data.length; i += 1) {
+			if (data[i]['name'] == this.channel.name) {
+				this.inTeam = true;
+			}
+		}
+
 		if (this.follChart && this.vmChart && this.priceChart) {
 			this.follChart.config.data.datasets[0].data = this.channel.followers;
 			this.vmChart.config.data.datasets[0].data = this.channel.vmscore;
@@ -246,13 +254,6 @@ export default {
   	}
   },
   mounted() {
-
-		const data = this.$store.getters.inventory;
-		for(let i = 0; i < data.length; i += 1) {
-			if (data[i]['name'] == this.channel.name) {
-				this.inTeam = true;
-			}
-		}
 
   	this.updateChannelData();
 
